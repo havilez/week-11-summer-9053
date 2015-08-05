@@ -1,5 +1,12 @@
 extends layout
 
 block content
+  ul.nav.nav-tabs
+    li
+      a(href="/") Home
+    li
+      a(href="/things") Things
+    li
+      a(href="/people") People 
   h1= title
   div(ng-view)
