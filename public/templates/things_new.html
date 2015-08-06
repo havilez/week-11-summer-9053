@@ -2,14 +2,14 @@
     {{error.message}}
 </div>
 
-<form class="form">
-    <div class="form-group">
+<form class="form" name="thingForm">
+    <div class="form-group" ng-class="{'has-error': !thingForm.name.$valid }">
         <label for="name">Name</label>
-        <input ng-model="thing.name" id="name" name="name" class="form-control" />
+        <input required ng-model="thing.name" id="name" name="name" class="form-control" />
     </div>
-    <div class="form-group">
+    <div class="form-group" ng-class="{'has-error' : !thingForm.price.$valid}">
         <label for="price">Price</label>
-        <input ng-model="thing.price" id="price" name="price" class="form-control" />
+        <input type="number" ng-model="thing.price" id="price" name="price" class="form-control" />
     </div>
-    <button class="btn btn-primary" ng-click="save()">Save</button>
+    <button ng-disabled="!thingForm.$valid" class="btn btn-primary" ng-click="save()">Save</button>
 </form>
