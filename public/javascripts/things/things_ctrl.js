@@ -1,8 +1,8 @@
 angular.module("my_world")
-    .controller("ThingsCtrl", function($http, $scope){
-        $http.get("/api/things/")
-            .then(function(response){
-                $scope.things = response.data;
-            });
-        
+    .controller("ThingsCtrl", function($scope, ThingsSvc){
+        console.log("ThingsCtrl");
+        ThingsSvc.getThings()
+            .then( function(things){
+                $scope.things = things;
+            })
     });

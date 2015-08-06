@@ -1,2 +1,8 @@
 <h2>Things</h2>
-{{things}}
+<ul class="list-group">
+   <li class="list-group-item" ng-repeat="thing in things">
+      {{ thing.name }} 
+      <br />
+      {{ thing.price | currency }}
+   </li> 
+</ul>
