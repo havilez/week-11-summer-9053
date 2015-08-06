@@ -1,6 +1,5 @@
 angular.module("my_world")
     .factory("ThingsSvc", function($q, $http){
-        console.log("ThingsSvc")
          function getThings(){
              var dfd = $q.defer();
              $http.get("/api/things")
@@ -9,7 +8,21 @@ angular.module("my_world")
                 });
              return dfd.promise;
          }
+         
+         function save(thing){
+             var dfd = $q.defer();
+             $http.post("/api/things", thing)
+                .then( function(thing){
+                   dfd.resolve(thing); 
+                })
+                .catch( function(err){
+                    dfd.reject(err.data);  
+                });
+             return dfd.promise;
+             
+         }
          return {
-             getThings: getThings
+             getThings: getThings,
+             save: save
          };
     });
