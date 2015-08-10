@@ -20,4 +20,35 @@ router.post("/", function(req, res){
    });
 });
 
+router.get("/things/:id", function (req, res) {
+   Thing.findById(req.params.id)
+       .then(function (thing) {
+          res.render("thing", {
+             activePath: "/things",
+             thing: thing,
+             title: "Thing " + thing.name,
+             price: thing.price
+          });
+       });
+});
+
+
+router.post("/things/:id", function (req, res) {
+   if (req.body.Save) {
+      Thing.update(
+          {_id: req.params.id},
+          {$set: {name: req.body.name, price: req.body.price}}
+      ).then(function () {
+             res.redirect("/things");
+          }), function (err) {
+         if (err) {
+            console.log("Error = ", err);
+            serverError = err;
+            res.render("error");
+         }
+      };
+   }
+
+});
+
 module.exports = router;

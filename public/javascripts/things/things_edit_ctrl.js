@@ -1,5 +1,5 @@
 angular.module("my_world")
-    .controller("ThingsNewCtrl", function($scope, $http, $location, ThingsSvc){
+    .controller("ThingsEditCtrl", function($scope, $http, $location, ThingsSvc){
         $scope.thing = {
         };
         $scope.save = function(){
@@ -10,5 +10,10 @@ angular.module("my_world")
                 .catch(function(error){
                     $scope.error = error; 
                 });
+            
+            
+            $scope.edit = function () {
+                
+            }
         }
     });

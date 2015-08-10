@@ -17,7 +17,9 @@
   },
   "description": "- npm install express-generator - express <name of your app>",
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.4.0"
+  },
   "author": "",
   "license": "ISC"
 }

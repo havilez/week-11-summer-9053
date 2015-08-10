@@ -1,10 +1,9 @@
 <h2>Things</h2>
-<a href="/things/new">Add a New Thing / </a>
-<a href="/things/edit">Edit a Thing / </a>
-<a href="/things/delete">Delete a Thing</a>
+<a href="/things/new">Add a New Thing</a>
+
 <ul class="list-group">
    <li class="list-group-item" ng-repeat="thing in things">
-      {{ thing.name }} 
+       <a href="/things/#{{thing._id}}"  >{{ thing.name }}</a>
       <br />
       {{ thing.price | currency }}
    </li> 
