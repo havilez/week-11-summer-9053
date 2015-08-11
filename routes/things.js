@@ -20,10 +20,10 @@ router.post("/", function(req, res){
    });
 });
 
-router.get("/things/:id", function (req, res) {
+router.get("/:id", function (req, res) {
    Thing.findById(req.params.id)
        .then(function (thing) {
-          res.render("thing", {
+          res.send({
              activePath: "/things",
              thing: thing,
              title: "Thing " + thing.name,
@@ -33,7 +33,7 @@ router.get("/things/:id", function (req, res) {
 });
 
 
-router.post("/things/:id", function (req, res) {
+router.post("/:id", function (req, res) {
    if (req.body.Save) {
       Thing.update(
           {_id: req.params.id},
@@ -50,5 +50,12 @@ router.post("/things/:id", function (req, res) {
    }
 
 });
+
+router.get("*", function ( req, res) {
+
+    console.log( req );
+
+
+})
 
 module.exports = router;

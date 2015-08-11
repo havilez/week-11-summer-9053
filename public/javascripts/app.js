@@ -1,5 +1,6 @@
 var app = angular.module("my_world", ['ngRoute']);
 app.config(function($routeProvider, $locationProvider){
+    var x=3;
    $routeProvider 
     .when("/", {
         controller: 'HomeCtrl',
@@ -13,7 +14,7 @@ app.config(function($routeProvider, $locationProvider){
         controller: 'ThingsNewCtrl',
         templateUrl: '/templates/things_new.html'
     })
-   .when("/things/edit", {
+   .when("/things/:thingId", {
        controllwer: "ThingsEditCtrl",
        templateUrl:  "/templates/things_edit.html"
    })

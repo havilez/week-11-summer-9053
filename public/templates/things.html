@@ -3,7 +3,7 @@
 
 <ul class="list-group">
    <li class="list-group-item" ng-repeat="thing in things">
-       <a href="/things/#{{thing._id}}"  >{{ thing.name }}</a>
+       <a href="/things/thing?userid={{thing._id}}"  >{{ thing.name }}</a>
       <br />
       {{ thing.price | currency }}
    </li> 
