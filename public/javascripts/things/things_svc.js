@@ -21,8 +21,21 @@ angular.module("my_world")
              return dfd.promise;
              
          }
+        function getThing( id )
+        {
+            var dfd = $q.defer();
+            $http.get("/api/thing/"+id, thing)
+                .then(function(thing){
+                     dfd.resolve(thing);
+                })
+                .cactch( function(err){
+                    dfd.reject(err.data);
+                })
+
+        }
          return {
              getThings: getThings,
-             save: save
+             save: save,
+             getThing: getThing
          };
     });

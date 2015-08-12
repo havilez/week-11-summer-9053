@@ -1,5 +1,5 @@
 angular.module("my_world")
-    .controller("ThingsEditCtrl", function($scope, $http, $location, ThingsSvc){
+    .controller("ThingsEditCtrl", function($scope, $http, $location, $routeParams,ThingsSvc){
         $scope.thing = {
         };
         $scope.save = function(){
@@ -13,6 +13,13 @@ angular.module("my_world")
             
             
             $scope.edit = function () {
+                ThingsSvc.getThing($routeParams.thingId)
+                    .then(function (thing) {
+                        $scope.thing = thing;
+                    })
+                    .catch(function (error) {
+                        $scope.error = error;
+                    });
                 
             }
         }

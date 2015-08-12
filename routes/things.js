@@ -2,6 +2,14 @@ var express = require("express");
 var router = express.Router();
 var Thing = require("../models/things")
 
+
+router.get("/thing:id", function (req, res) {
+    Thing.findById(req.params.id)
+        .then(function (thing) {
+            res.send(thing);
+        });
+});
+
 router.get("/", function(req, res){
    Thing.find({}).then(function(things){
        res.send(things);
@@ -20,17 +28,7 @@ router.post("/", function(req, res){
    });
 });
 
-router.get("/:id", function (req, res) {
-   Thing.findById(req.params.id)
-       .then(function (thing) {
-          res.send({
-             activePath: "/things",
-             thing: thing,
-             title: "Thing " + thing.name,
-             price: thing.price
-          });
-       });
-});
+
 
 
 router.post("/:id", function (req, res) {
@@ -51,9 +49,10 @@ router.post("/:id", function (req, res) {
 
 });
 
-router.get("*", function ( req, res) {
+router.get("*", function ( req, res, next) {
 
     console.log( req );
+    next();
 
 
 })
