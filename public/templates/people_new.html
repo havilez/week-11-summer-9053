@@ -1,0 +1,12 @@
+<div class="alert alert-danger" ng-show="error">
+    {{error.message}}
+</div>
+
+<form class="form" name="personForm">
+    <div class="form-group" ng-class="{'has-error': !personForm.name.$valid }">
+        <label for="name">Name</label>
+        <input required ng-model="person.name" id="name" name="name" class="form-control" />
+    </div>
+
+    <button ng-disabled="!personForm.$valid" class="btn btn-primary" ng-click="save()">Save</button>
+</form>

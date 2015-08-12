@@ -2,6 +2,11 @@ angular.module("my_world")
     .controller("ThingsEditCtrl", function($scope, $http, $location, $routeParams,ThingsSvc){
         $scope.thing = {
         };
+
+        editThing();
+
+
+        // called on save button on detail page
         $scope.save = function(){
             ThingsSvc.save($scope.thing)
                 .then( function(thing){
@@ -12,8 +17,8 @@ angular.module("my_world")
                 });
             
             
-            $scope.edit = function () {
-                ThingsSvc.getThing($routeParams.thingId)
+            $scope.editThing = function () {
+                ThingsSvc.getThing($routeParams.Id)
                     .then(function (thing) {
                         $scope.thing = thing;
                     })

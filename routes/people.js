@@ -1,32 +1,31 @@
 var express = require("express");
 var router = express.Router();
-var Thing = require("../models/things")
-
+var People = require("../models/people")
 
 
 
 router.get("/:id", function (req, res) {
-    Thing.findById(req.params.id)
-        .then(function (thing) {
-            res.send(thing);
+    People.findById(req.params.id)
+        .then(function (person) {
+            res.send(person);
         });
 });
 
 router.get("/", function(req, res){
-   Thing.find({}).then(function(things){
-       res.send(things);
+   People.find({}).then(function(people){
+       res.send(people);
    }); 
 });
 
 router.post("/", function(req, res){
-   var thing = new Thing(req.body);
-   thing.save(function(err, _thing){
+   var person = new People(req.body);
+   person.save(function(err, _person){
       if(err){
          res.status(422); 
          res.send(err);
       }
       else
-         res.send(thing);
+         res.send(person);
    });
 });
 
@@ -35,11 +34,11 @@ router.post("/", function(req, res){
 
 router.post("/:id", function (req, res) {
    if (req.body.Save) {
-      Thing.update(
+      People.update(
           {_id: req.params.id},
-          {$set: {name: req.body.name, price: req.body.price}}
+          {$set: {name: req.body.name, age: req.body.age}}
       ).then(function () {
-             res.redirect("/things");
+             res.redirect("/People");
           }), function (err) {
          if (err) {
             console.log("Error = ", err);
@@ -52,9 +51,9 @@ router.post("/:id", function (req, res) {
 });
 
 router.delete("/:id", function (req, res) {
-    Thing.remove({_id: req.params.id})
+    People.remove({_id: req.params.id})
         .then(function () {
-            res.redirect("/things");
+            res.redirect("/people");
         });
 
 
