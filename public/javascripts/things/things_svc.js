@@ -13,7 +13,7 @@ angular.module("my_world")
              var dfd = $q.defer();
              $http.post("/api/things", thing)
                 .then( function(thing){
-                   dfd.resolve(thing); 
+                   dfd.resolve(thing);
                 })
                 .catch( function(err){
                     dfd.reject(err.data);  
@@ -24,9 +24,9 @@ angular.module("my_world")
         function getThing( id )
         {
             var dfd = $q.defer();
-            $http.get("/api/thing/"+id)
+            $http.get("/api/things/"+id)
                 .then(function(thing){
-                     dfd.resolve(thing);
+                     dfd.resolve(thing.data);
                 })
                 .catch( function(err){
                     dfd.reject(err.data);
@@ -34,9 +34,23 @@ angular.module("my_world")
 
             return dfd.promise;
         }
+
+        function update(thing){
+            var dfd = $q.defer();
+            $http.put("/api/things/" +thing._id ,thing)
+                .then( function(_thing){
+                    dfd.resolve(_thing);
+                })
+                .catch( function(err){
+                    dfd.reject(err.data);
+                });
+            return dfd.promise;
+
+        }
          return {
              getThings: getThings,
              save: save,
-             getThing: getThing
+             getThing: getThing,
+             update: update
          };
     });

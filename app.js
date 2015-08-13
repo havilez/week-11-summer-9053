@@ -20,6 +20,7 @@ require("./config/db").connect(function(err, conn){
 
 
 var app = express();
+app.locals.pretty = true;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

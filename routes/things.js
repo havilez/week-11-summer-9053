@@ -3,6 +3,27 @@ var router = express.Router();
 var Thing = require("../models/things")
 
 
+function findThingById(req, res, next){
+    res.locals.activePath = "/things";
+    res.locals.title = "Add A New Thing";
+    if(req.params.id){
+        Thing.findById(req.params.id, function(err, thing){
+            if(err)
+                next(err);
+            else{
+                res.locals.thing = thing;
+                res.locals.title = "Editing " + thing.name;
+                next();
+            }
+        });
+    }
+    else{
+        res.locals.thing = new Thing();
+        next();
+    }
+
+}
+
 
 
 router.get("/:id", function (req, res) {
@@ -31,9 +52,9 @@ router.post("/", function(req, res){
 });
 
 
+/**
 
-
-router.post("/:id", function (req, res) {
+router.post("/:id",  findThingById, function (req, res) {
    if (req.body.Save) {
       Thing.update(
           {_id: req.params.id},
@@ -48,6 +69,33 @@ router.post("/:id", function (req, res) {
          }
       };
    }
+
+});
+**/
+
+router.put("/:id", findThingById,function (req, res) {
+    //if (req.body.Save) {
+    // FIX-ME: shd call middleware find thing by id
+    var thing = res.locals.thing;
+/**
+    thing._id = req.params.id;
+    thing.name = req.body.name;
+    thing.price = req.body.price;
+**/
+
+        Thing.update(
+            {_id: req.params.id},
+            {$set: {name: req.body.name, price: req.body.price}}
+        ).then(function (_thing) {
+                res.json({ message: 'Successfully deleted' });
+            }), function (err) {
+            if (err) {
+                console.log("Error = ", err);
+                serverError = err;
+                res.render("error");
+            }
+        };
+   // }
 
 });
 
