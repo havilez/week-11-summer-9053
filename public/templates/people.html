@@ -1,9 +1,9 @@
 <h2>People</h2>
-<a href="#/people/new">Add a New Person</a>
+<a href="/people/new">Add a New Person</a>
 
 <ul class="list-group">
     <li class="list-group-item" ng-repeat="person in people">
-        <a ng-href="#/people/{{person._id}}"  >{{ person.name }}</a>
+        <a ng-href="/people/edit/{{person._id}}"  >{{ person.name }}</a>
 
     </li>
 </ul>

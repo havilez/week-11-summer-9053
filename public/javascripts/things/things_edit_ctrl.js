@@ -1,11 +1,11 @@
 angular.module("my_world")
     .controller("ThingsEditCtrl", function($scope, $http, $location, $routeParams,ThingsSvc){
-        console.log("in ThingsEditCtrl");
+
 
         $scope.thing = {
         };
 
-        ThingsSvc.getThing($routeParams.Id)
+        ThingsSvc.getThing($routeParams.id)
             .then(function (thing) {
                 $scope.thing = thing;
             })

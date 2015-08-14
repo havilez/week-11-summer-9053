@@ -1,5 +1,6 @@
 angular.module("my_world")
     .controller("ThingsNewCtrl", function($scope, $http, $location, ThingsSvc){
+        console.log("in ThingsNewCtrl");
         $scope.thing = {
         };
         $scope.save = function(){

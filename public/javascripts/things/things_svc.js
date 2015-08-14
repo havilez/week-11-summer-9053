@@ -21,10 +21,10 @@ angular.module("my_world")
              return dfd.promise;
              
          }
-        function getThing( id )
+        function getThing( _id )
         {
             var dfd = $q.defer();
-            $http.get("/api/things/"+id)
+            $http.get("/api/things/"+_id)
                 .then(function(thing){
                      dfd.resolve(thing.data);
                 })

@@ -5,7 +5,7 @@ app.config(function($routeProvider, $locationProvider){
         controller: 'HomeCtrl',
         templateUrl: '/templates/home.html'
     })
-   .when("/things/:Id", {
+   .when("/things/:id/edit", {
        controller: "ThingsEditCtrl",
        templateUrl:  "/templates/things_edit.html"
    })
@@ -30,7 +30,7 @@ app.config(function($routeProvider, $locationProvider){
    });
 
 
-  //  $locationProvider.html5Mode(true);
+   $locationProvider.html5Mode(true);
 });
 
 app.run([
