@@ -5,9 +5,8 @@ app.config(function($routeProvider, $locationProvider){
         controller: 'HomeCtrl',
         templateUrl: '/templates/home.html'
     })
-   .when("/things/:id/edit", {
-       controller: "ThingsEditCtrl",
-       templateUrl:  "/templates/things_edit.html"
+   .when("/things/:id/delete", {
+       controller: "ThingsDeleteCtrl"
    })
     .when("/things", {
         controller: 'ThingsCtrl',

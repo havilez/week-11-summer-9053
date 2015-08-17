@@ -47,10 +47,25 @@ angular.module("my_world")
             return dfd.promise;
 
         }
+
+        function deleteThing( thing )
+        {
+            var dfd = $q.defer();
+            $http.delete("/api/things/"+thing._id)
+                .then(function(thing){
+                    dfd.resolve(thing.data);
+                })
+                .catch( function(err){
+                    dfd.reject(err.data);
+                })
+
+            return dfd.promise;
+        }
          return {
              getThings: getThings,
              save: save,
              getThing: getThing,
-             update: update
+             update: update,
+             delete: deleteThing
          };
     });

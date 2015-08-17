@@ -28,14 +28,14 @@ function findThingById(req, res, next){
 
 router.get("/:id", function (req, res) {
     Thing.findById(req.params.id)
-        .then(function (thing) {
-            res.send(thing);
+        .then(function (_thing) {
+            res.send(_thing);
         });
 });
 
 router.get("/", function(req, res){
-   Thing.find({}).then(function(things){
-       res.send(things);
+   Thing.find({}).then(function(_things){
+       res.send(_things);
    }); 
 });
 
@@ -87,7 +87,7 @@ router.put("/:id", findThingById,function (req, res) {
             {_id: req.params.id},
             {$set: {name: req.body.name, price: req.body.price}}
         ).then(function (_thing) {
-                res.json({ message: 'Successfully deleted' });
+                res.json({ message: 'Successfully updated' });
             }), function (err) {
             if (err) {
                 console.log("Error = ", err);
@@ -101,8 +101,8 @@ router.put("/:id", findThingById,function (req, res) {
 
 router.delete("/:id", function (req, res) {
     Thing.remove({_id: req.params.id})
-        .then(function () {
-            res.redirect("/things");
+        .then(function (_thing) {
+            res.json({ message: 'Successfully deleted' });
         });
 
 

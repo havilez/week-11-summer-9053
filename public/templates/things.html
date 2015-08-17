@@ -3,8 +3,13 @@
 
 <ul class="list-group">
    <li class="list-group-item" ng-repeat="thing in things">
-       <a ng-href="/things/{{thing._id}}/edit"  >{{ thing.name }}</a>
-      <br />
-      {{ thing.price | currency }}
+       {{ thing.name }}
+       <br />
+       {{ thing.price | currency }}
+       <br />
+       <button class="btn btn-warning" ng-click="delete(thing)">Delete</button>
+       <br />
+       <a ng-href="/things/{{thing._id}}/edit"  >Edit</a>
+
    </li> 
 </ul>
