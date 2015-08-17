@@ -2,18 +2,39 @@ var express = require("express");
 var router = express.Router();
 var People = require("../models/people")
 
+function findPersonById(req, res, next){
+    res.locals.activePath = "/people";
+    res.locals.title = "Add A New Person";
+    if(req.params.id){
+        People.findById(req.params.id, function(err, person){
+            if(err)
+                next(err);
+            else{
+                res.locals.person = person;
+                res.locals.title = "Editing " + person.name;
+                next();
+            }
+        });
+    }
+    else{
+        res.locals.person = new People();
+        next();
+    }
+
+}
+
 
 
 router.get("/:id", function (req, res) {
     People.findById(req.params.id)
-        .then(function (person) {
-            res.send(person);
+        .then(function (_person) {
+            res.send(_person);
         });
 });
 
 router.get("/", function(req, res){
-   People.find({}).then(function(people){
-       res.send(people);
+   People.find({}).then(function(_people){
+       res.send(_people);
    }); 
 });
 
@@ -25,20 +46,20 @@ router.post("/", function(req, res){
          res.send(err);
       }
       else
-         res.send(person);
+         res.send(_person);
    });
 });
 
 
 
 
-router.post("/:id", function (req, res) {
-   if (req.body.Save) {
+router.put("/:id", findPersonById, function (req, res) {
+
       People.update(
           {_id: req.params.id},
           {$set: {name: req.body.name, age: req.body.age}}
       ).then(function () {
-             res.redirect("/People");
+          res.json({ message: 'Successfully updated' });
           }), function (err) {
          if (err) {
             console.log("Error = ", err);
@@ -46,14 +67,14 @@ router.post("/:id", function (req, res) {
             res.render("error");
          }
       };
-   }
+
 
 });
 
 router.delete("/:id", function (req, res) {
     People.remove({_id: req.params.id})
         .then(function () {
-            res.redirect("/people");
+            res.json({ message: 'Successfully deleted' });
         });
 
 

@@ -10,10 +10,9 @@ app.config(function($routeProvider, $locationProvider){
     .when("/things", {
         controller: 'ThingsCtrl',
         templateUrl: '/templates/things.html'
-
     })
    .when("/things/:id/edit", {
-       controller: "ThingsEditCtrl",
+       controller: 'ThingsEditCtrl',
        templateUrl: '/templates/things_edit.html'
    })
     .when("/things/new", {
@@ -25,6 +24,10 @@ app.config(function($routeProvider, $locationProvider){
         controller: 'PeopleCtrl',
         templateUrl: '/templates/people.html'
     })
+   .when("/people/:id/edit", {
+       controller: 'PeopleEditCtrl',
+       templateUrl: '/templates/people_edit.html'
+   })
    .when("/people/new", {
        controller: 'PeopleNewCtrl',
        templateUrl: '/templates/people_new.html'

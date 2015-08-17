@@ -13,7 +13,7 @@ angular.module("my_world")
              var dfd = $q.defer();
              $http.post("/api/people", person)
                 .then( function(person){
-                   dfd.resolve(person);
+                   dfd.resolve(person.data);
                 })
                 .catch( function(err){
                     dfd.reject(err.data);  
@@ -26,7 +26,7 @@ angular.module("my_world")
             var dfd = $q.defer();
             $http.get("/api/people/"+id)
                 .then(function(person){
-                     dfd.resolve(person);
+                     dfd.resolve(person.data);
                 })
                 .catch( function(err){
                     dfd.reject(err.data);
@@ -34,9 +34,38 @@ angular.module("my_world")
 
             return dfd.promise;
         }
+        function update(person){
+            var dfd = $q.defer();
+            $http.put("/api/people/" + person._id ,person)
+                .then( function(_person){
+                    dfd.resolve(_person);
+                })
+                .catch( function(err){
+                    dfd.reject(err.data);
+                });
+            return dfd.promise;
+
+        }
+
+        function deletePerson( person )
+        {
+            var dfd = $q.defer();
+            $http.delete("/api/people/"+person._id)
+                .then(function(resp){
+                    dfd.resolve(resp.data);
+                })
+                .catch( function(err){
+                    dfd.reject(err.data);
+                })
+
+            return dfd.promise;
+        }
+
          return {
              getPeople: getPeople,
              save: save,
-             getPerson: getPerson
+             getPerson: getPerson,
+             update: update,
+             delete: deletePerson,
          };
     });

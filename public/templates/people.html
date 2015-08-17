@@ -3,7 +3,15 @@
 
 <ul class="list-group">
     <li class="list-group-item" ng-repeat="person in people">
-        <a ng-href="/people/edit/{{person._id}}"  >{{ person.name }}</a>
+        {{ person.name }}
+        <br />
+        {{ person.age | number }}
+        <br />
+        <button class="btn btn-warning" ng-click="delete(person)">Delete</button>
+        <br />
+        <a ng-href="/people/{{person._id}}/edit"  >Edit</a>
 
     </li>
 </ul>
+
+
