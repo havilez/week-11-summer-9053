@@ -52,30 +52,10 @@ router.post("/", function(req, res){
 });
 
 
-/**
 
-router.post("/:id",  findThingById, function (req, res) {
-   if (req.body.Save) {
-      Thing.update(
-          {_id: req.params.id},
-          {$set: {name: req.body.name, price: req.body.price}}
-      ).then(function () {
-             res.redirect("/things");
-          }), function (err) {
-         if (err) {
-            console.log("Error = ", err);
-            serverError = err;
-            res.render("error");
-         }
-      };
-   }
-
-});
-**/
 
 router.put("/:id", findThingById,function (req, res) {
-    //if (req.body.Save) {
-    // FIX-ME: shd call middleware find thing by id
+
     var thing = res.locals.thing;
 /**
     thing._id = req.params.id;
@@ -95,7 +75,6 @@ router.put("/:id", findThingById,function (req, res) {
                 res.render("error");
             }
         };
-   // }
 
 });
 

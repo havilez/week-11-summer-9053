@@ -25,11 +25,11 @@ function findPersonById(req, res, next){
 
 
 
-router.get("/:id", function (req, res) {
-    People.findById(req.params.id)
-        .then(function (_person) {
-            res.send(_person);
-        });
+router.get("/:id", findPersonById, function (req, res) {
+    var person = new People();
+    person =  res.locals.person;
+    res.send(person);
+
 });
 
 router.get("/", function(req, res){
@@ -58,7 +58,7 @@ router.put("/:id", findPersonById, function (req, res) {
       People.update(
           {_id: req.params.id},
           {$set: {name: req.body.name, age: req.body.age}}
-      ).then(function () {
+      ).then(function (_person) {
           res.json({ message: 'Successfully updated' });
           }), function (err) {
          if (err) {
