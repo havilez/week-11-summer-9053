@@ -26,42 +26,37 @@ function findThingById(req, res, next){
 
 
 
-router.get("/:id", function (req, res) {
-    Thing.findById(req.params.id)
-        .then(function (_thing) {
-            res.send(_thing);
-        });
-});
 
-router.get("/", function(req, res){
-   Thing.find({}).then(function(_things){
-       res.send(_things);
-   }); 
-});
+router.route("/")
+    .get( function(req, res){
+       Thing.find({}).then(function(_things){
+           res.send(_things);
+         });
+    })
 
-router.post("/", function(req, res){
-   var thing = new Thing(req.body);
-   thing.save(function(err, _thing){
-      if(err){
-         res.status(422); 
-         res.send(err);
-      }
-      else
-         res.send(thing);
-   });
-});
+    .post( function(req, res){
+       var thing = new Thing(req.body);
+       thing.save(function(err, _thing){
+          if(err){
+             res.status(422);
+             res.send(err);
+          }
+          else
+             res.send(thing);
+       });
+    });
 
 
+router.route("/:id")
+    .get(findThingById, function (req, res) {
+        var thing =  new Thing();
+        thing = res.locals.thing;
+
+        res.send(thing);
+    })
 
 
-router.put("/:id", findThingById,function (req, res) {
-
-    var thing = res.locals.thing;
-/**
-    thing._id = req.params.id;
-    thing.name = req.body.name;
-    thing.price = req.body.price;
-**/
+    .put( function (req, res) {
 
         Thing.update(
             {_id: req.params.id},
@@ -76,17 +71,16 @@ router.put("/:id", findThingById,function (req, res) {
             }
         };
 
-});
-
-router.delete("/:id", function (req, res) {
-    Thing.remove({_id: req.params.id})
-        .then(function (_thing) {
-            res.json({ message: 'Successfully deleted' });
-        });
+    })
 
 
+    .delete( function (req, res) {
 
-});
+        Thing.remove({_id: req.params.id})
+            .then(function (_thing) {
+                res.json({ message: 'Successfully deleted' });
+            });
+    });
 
 router.get("*", function ( req, res, next) {
 

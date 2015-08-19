@@ -25,61 +25,63 @@ function findPersonById(req, res, next){
 
 
 
-router.get("/:id", findPersonById, function (req, res) {
-    var person = new People();
-    person =  res.locals.person;
-    res.send(person);
-
-});
-
-router.get("/", function(req, res){
-   People.find({}).then(function(_people){
-       res.send(_people);
-   }); 
-});
-
-router.post("/", function(req, res){
-   var person = new People(req.body);
-   person.save(function(err, _person){
-      if(err){
-         res.status(422); 
-         res.send(err);
-      }
-      else
-         res.send(_person);
-   });
-});
 
 
+router.route("/")
 
-
-router.put("/:id", findPersonById, function (req, res) {
-
-      People.update(
-          {_id: req.params.id},
-          {$set: {name: req.body.name, age: req.body.age}}
-      ).then(function (_person) {
-          res.json({ message: 'Successfully updated' });
-          }), function (err) {
-         if (err) {
-            console.log("Error = ", err);
-            serverError = err;
-            res.render("error");
-         }
-      };
-
-
-});
-
-router.delete("/:id", function (req, res) {
-    People.remove({_id: req.params.id})
-        .then(function () {
-            res.json({ message: 'Successfully deleted' });
+    .get( function(req, res) {
+        People.find({}).then(function (_people) {
+            res.send(_people);
         });
+    })
 
-
-
+    .post( function(req, res){
+       var person = new People(req.body);
+       person.save(function(err, _person){
+          if(err){
+             res.status(422);
+             res.send(err);
+          }
+          else
+             res.send(_person);
+       });
 });
+
+
+router.route("/:id")
+
+    .get( findPersonById, function (req, res) {
+        var person = new People();
+        person =  res.locals.person;
+        res.send(person);
+
+    })
+
+    .put( function (req, res) {
+
+        People.update(
+            {_id: req.params.id},
+            {$set: {name: req.body.name, age: req.body.age}}
+        ).then(function (_person) {
+                res.json({ message: 'Successfully updated' });
+            }), function (err) {
+            if (err) {
+                console.log("Error = ", err);
+                serverError = err;
+                res.render("error");
+            }
+        };
+
+
+})
+
+    .delete( function (req, res) {
+
+        People.remove({_id: req.params.id})
+            .then(function () {
+                res.json({ message: 'Successfully deleted' });
+            });
+    });
 
 router.get("*", function ( req, res, next) {
 
