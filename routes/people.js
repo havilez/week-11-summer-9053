@@ -61,7 +61,7 @@ router.route("/:id")
 
         People.update(
             {_id: req.params.id},
-            {$set: {name: req.body.name, age: req.body.age}}
+            {$set: {name: req.body.name}}
         ).then(function (_person) {
                 res.json({ message: 'Successfully updated' });
             }), function (err) {

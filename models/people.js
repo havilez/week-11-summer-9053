@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var PeopleSchema = mongoose.Schema({
-    name: { type: String, required:true, unique: true },
-    age: { type: Number, required: true, default: 0 }
+    name: { type: String, required:true, unique: true }
 });
 
 var People = mongoose.model("people", PeopleSchema);

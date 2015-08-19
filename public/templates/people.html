@@ -5,8 +5,6 @@
     <li class="list-group-item" ng-repeat="person in people">
         {{ person.name }}
         <br />
-        {{ person.age | number }}
-        <br />
         <button class="btn btn-warning" ng-click="delete(person)">Delete</button>
         <br />
         <a ng-href="/people/{{person._id}}/edit"  >Edit</a>
